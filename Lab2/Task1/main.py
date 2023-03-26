@@ -13,6 +13,8 @@ Robert De Niros character Travis Bickle famously asks, "Are you talkin to me?!"
 Absaf! "Where were you yesterday?" Mr. Fox asked Grandpa.
 Bob said to me "Vdsgshd cag. Bvdad gda32! Fvff msd."
 A b a b a b, "Hello there!" Mvdssd bfd. C d a c d a c d a c d a c d a c d a!
+Charlie fell out of the bag. (I wasn’t fast enough to stop him!) At least we won’t have to sweep the floor.
+(Hi there!) (Mbfs vfs?)
 '''
 
 sentences = re.split(r'(?<!Ph\.\sD)(?<!Ph(?=\.\sD\.))(?<!Ph\.D)(?<!Ph(?=\.D))'
@@ -21,7 +23,8 @@ sentences = re.split(r'(?<!Ph\.\sD)(?<!Ph(?=\.\sD\.))(?<!Ph\.D)(?<!Ph(?=\.D))'
                      r'(?<!e\.\sg)(?<!e(?=\.\sg\.))(?<!e\.g)(?<!e(?=\.g))'
                      r'(?<!Mr)(?<!Mrs)(?<!Dr)(?<!Lt)(?<!Rep)(?<!Mr)(?<!etc(?=\.[^\n]))'
                      r'(?<![ap]\.\sm)(?<![ap](?=\.\sm\.))(?<![ap]\.m)(?<![ap](?=\.m))'
-                     r'((?<=[A-Za-z0-9])\.|!|\?|\?!|(?<=[A-Za-z0-9])\.\.\.|(?<=\.)\"|(?<=\?)\"|(?<=!)\")'
+                     r'((?<=[A-Za-z0-9])\.|!|\?|\?!|(?<=[A-Za-z0-9])\.\.\.|(?<=\.)\"|(?<=\?)\"|(?<=!)\"|'
+                     r'(?<=[A-Za-z0-9])\.\)|!\)|\?|\?!\)|(?<=[A-Za-z0-9])\.\.\.\))'
                      r'(\s|\n|$)', text)
 
 print(sentences)
@@ -44,10 +47,11 @@ while i < len(sentences):
         else:
             sentences = sentences[:i + 1]
         continue
-    if el == '.' or el == '!' or el == '?' or el == '?!' or el == '...' or el == '"':
+    if el == '.' or el == '!' or el == '?' or el == '?!' or el == '...' or el == '"' or\
+            el == '.)' or el == '!)' or el == '?)' or el == '?!)' or el == '...)':
         sentences[i - 1] = sentences[i - 1] + el
     if el == '' or el == '.' or el == '...' or el == '!' or el == '?' or el == '?!' or el == ' ' or\
-            el == '\n' or el == '"':
+            el == '\n' or el == '"' or el == '.)' or el == '!)' or el == '?)' or el == '?!)' or el == '...)':
         sentences.remove(el)
         i -= 1
     i += 1
@@ -68,7 +72,8 @@ print("Amount of sentences in the text: " + str(len(sentences)))
 
 amountOfDeclarativeSentences = 0
 for sentence in sentences:
-    if sentence[-1] == '.' or sentence[-1] == '"':
+    if sentence[-1] == '.' or sentence[-1] == '"' or (
+            len(sentence) >= 2 and sentence[-1] == ')' and sentence[-2] == '.'):
         amountOfDeclarativeSentences += 1
 
 print("Amount of declarative sentences in the text: " + str(amountOfDeclarativeSentences))
@@ -78,7 +83,7 @@ wordsInText = []
 countOfWordsInText = 0
 totalSumOfCharsInWords = 0
 for sentence in sentences:
-    wordsInSentence = re.split(r'(\s|\n|\"|(?<=i)\.|(?<=e)\.|(?<=B)\.|(?<=A)\.|(?<=Ph)\.|(?<=D)\.'
+    wordsInSentence = re.split(r'(\s|\n|\"|\(|(?<=i)\.|(?<=e)\.|(?<=B)\.|(?<=A)\.|(?<=Ph)\.|(?<=D)\.'
                                r'|(?<=a)\.|(?<=m)\.|(?<=Dr)\.|(?<=Mr)\.|(?<=Mrs)\.|(?<=Rep)\.|(?<=Lt)\.)', sentence)
     i = 0
     while i < len(wordsInSentence):
