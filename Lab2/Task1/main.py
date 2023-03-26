@@ -29,11 +29,11 @@ sentences = re.split(r'(?<!Ph\.\sD)(?<!Ph(?=\.\sD\.))(?<!Ph\.D)(?<!Ph(?=\.D))'
 
 print(sentences)
 
-# To remove extra newlines at the beginning of 1st sentence.
-if len(sentences) > 0:
-    lastNewLineInd = sentences[0].rfind('\n')
-    if not len(sentences[0]) == lastNewLineInd + 1:
-        sentences[0] = sentences[0][lastNewLineInd + 1:]
+i = 0
+while i < len(sentences):
+    if not len(sentences[i]) == 1:
+        sentences[i] = re.sub(r'\n', '', sentences[i])
+    i += 1
 
 i = 0
 while i < len(sentences):
