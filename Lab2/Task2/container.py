@@ -1,6 +1,14 @@
 import re
 
 
+def is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
 class ContainerOfUsers:
     current_user = "Pavel"
 
@@ -58,6 +66,8 @@ class ContainerOfUsers:
                     for el in lst:
                         if el.isdigit():
                             el = int(el)
+                        elif is_float(el):
+                            el = float(el)
                         elif len(el) >= 2 and (el[0] == '\'' or el[0] == '\"') and \
                                 (el[-1] == '\'' or el[-1] == '\"'):
                             el = el[1:len(el) - 1]
@@ -67,7 +77,7 @@ class ContainerOfUsers:
         with open("testoutput.txt", "w") as file:
             file.write(self.current_user + ':')
             for el in self.storage.get(self.current_user):
-                if type(el) == str:
+                if type(el) == str and re.match(r'[0-9\.\'\"]+', el):
                     file.write(' ' + '\'' + str(el) + '\'')
                 else:
                     file.write(' ' + str(el))
