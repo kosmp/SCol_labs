@@ -87,17 +87,17 @@ for sentence in sentences:
                                r'|(?<=a)\.|(?<=m)\.|(?<=Dr)\.|(?<=Mr)\.|(?<=Mrs)\.|(?<=Rep)\.|(?<=Lt)\.)', sentence)
     i = 0
     while i < len(wordsInSentence):
-        el = wordsInSentence[i]
-        if el == '' or el == '.' or el == ' ' or not el[0].isalpha():
-            wordsInSentence.remove(el)
-            i -= 1
+        for el in wordsInSentence[i]:
+            wordsInSentence[i] = re.sub(r'\.|\?|!|,|;|\(|\)|\s|:|-|\"|\'|_', '', wordsInSentence[i])
+            totalSumOfCharsInWords += len(wordsInSentence[i])
         i += 1
 
     i = 0
     while i < len(wordsInSentence):
-        for el in wordsInSentence[i]:
-            wordsInSentence[i] = re.sub(r'\.|\?|!|,|;|\(|\)|\s|:|-|\"|\'|_', '', wordsInSentence[i])
-            totalSumOfCharsInWords += len(wordsInSentence[i])
+        el = wordsInSentence[i]
+        if el == '' or el == '.' or el == ' ' or el.isnumeric():
+            wordsInSentence.remove(el)
+            i -= 1
         i += 1
     countOfWordsInText += len(sentence)
     wordsInText += wordsInSentence
