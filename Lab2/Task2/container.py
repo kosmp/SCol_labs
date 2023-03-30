@@ -12,16 +12,17 @@ class ContainerOfUsers:
             self.storage.get(self.current_user).add(el)
 
     def remove(self,  element):
-        for i in self.storage.get(self.current_user):
-            if i == element:
-                self.storage.get(self.current_user).remove(element)
+        self.storage.get(self.current_user).discard(element)
 
     def find(self, *args):
         user_set = self.storage.get(self.current_user)
         list_of_found = []
         for el in args:
             if el in user_set:
-                print(f"Found {el}")
+                if type(el) == str:
+                    print(f"Found '{el}'")
+                else:
+                    print(f"Found {el}")
                 list_of_found.append(el)
 
         if len(list_of_found) == 0:
@@ -45,7 +46,7 @@ class ContainerOfUsers:
     def load(self):
         with open("test.txt", "r") as file:
             for line in file:
-                check_line_format = re.match(r'^[\w-]+:(\s[\w\.-]+)+$', line)
+                check_line_format = re.match(r'^[\w-]+:(\s[\w\.\-\'\"]+)+$', line)
                 if not check_line_format:
                     print("Incorrect format for some of the file lines. Data has not been loaded. "
                           "Edit data in the file to load.")
@@ -57,13 +58,19 @@ class ContainerOfUsers:
                     for el in lst:
                         if el.isdigit():
                             el = int(el)
+                        elif len(el) >= 2 and (el[0] == '\'' or el[0] == '\"') and \
+                                (el[-1] == '\'' or el[-1] == '\"'):
+                            el = el[1:len(el) - 1]
                         self.storage.get(self.current_user).add(el)
 
     def save(self):
-        with open("test.txt", "w") as file:
+        with open("testoutput.txt", "w") as file:
             file.write(self.current_user + ':')
             for el in self.storage.get(self.current_user):
-                file.write(' ' + str(el))
+                if type(el) == str:
+                    file.write(' ' + '\'' + str(el) + '\'')
+                else:
+                    file.write(' ' + str(el))
 
     def switch(self, new_user):
         if len(new_user) == 0:

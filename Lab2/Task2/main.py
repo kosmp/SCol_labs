@@ -10,14 +10,32 @@ def menu(container: ContainerOfUsers):
 
         if choice == 'add':
             add_data = input("Enter data to add(one or more elements separated by spaces): ").split(' ')
+            i = 0
+            while i < len(add_data):
+                if add_data[i].isdigit():
+                    add_data[i] = int(add_data[i])
+                elif len(add_data[i]) >= 2 and (add_data[i][0] == '\'' or add_data[i][0] == '\"') and\
+                        (add_data[i][-1] == '\'' or add_data[i][-1] == '\"'):
+                    add_data[i] = add_data[i][1:len(add_data[i]) - 1]
+                i += 1
             container.add(*add_data)
         elif choice == 'remove':
             remove_data = input("Enter data to remove(one element): ")
             if remove_data.isdigit():
-                remove_data = int(remove_data)
-            container.remove(remove_data)
+                container.remove(int(remove_data))
+            elif len(remove_data) >= 2 and (remove_data[0] == '\'' or remove_data[0] == '\"') and\
+                    (remove_data[-1] == '\'' or remove_data[-1] == '\"'):
+                container.remove(remove_data[1:len(remove_data) - 1])
         elif choice == 'find':
             find_data = input("Enter data to find(one or more elements separated by spaces): ").split(' ')
+            i = 0
+            while i < len(find_data):
+                if find_data[i].isdigit():
+                    find_data[i] = int(find_data[i])
+                elif len(find_data[i]) >= 2 and (find_data[i][0] == '\'' or find_data[i][0] == '\"') and\
+                        (find_data[i][-1] == '\'' or find_data[i][-1] == '\"'):
+                    find_data[i] = find_data[i][1:len(find_data[i]) - 1]
+                i += 1
             container.find(*find_data)
         elif choice == 'grep':
             regex = str(input("Enter a regular expression to find: "))
@@ -40,7 +58,7 @@ def menu(container: ContainerOfUsers):
         elif choice == 'list':
             container.list()
         elif choice == 'exit':
-            ch = input("Do you want to save data to file? If YES - enter Y")
+            ch = input("Do you want to save data to file? If YES - enter Y: ")
             if ch == 'Y':
                 container.save()
             break
