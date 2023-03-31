@@ -113,8 +113,16 @@ def get_words_and_num_of_chars(sentences: list[str]) -> tuple[list[str], int]:
             total_num_of_chars_in_words += len(words_in_sentence[i])
             i += 1
 
+        i = 0
+        while i < len(words_in_sentence):
+            el = words_in_sentence[i]
+            if el == '' or el == ' ':
+                words_in_sentence.remove(el)
+                i -= 1
+            i += 1
+
         words_in_text += words_in_sentence
-        # print("Final list of words in the sentence: " + str(wordsInSentence))
+        print("Final list of words in the sentence: " + str(words_in_sentence))
     return words_in_text, total_num_of_chars_in_words
 
 
