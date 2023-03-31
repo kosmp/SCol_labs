@@ -1,7 +1,7 @@
 import parser
 
 text_to_process = '''
-Abf gr32f 4vd d4g75 32 5 ad, ba, cb etc.
+Abf gr32f 4vd P.M. Kosmin d4g75 32 5 ad, ba, cb etc.
 Vcdgfd ad? Bdf ... cvvkd 3 64 f!
 Nvf fs?!
 Cdgdg e.g. gf dv, Dr. Smith. Vfgd vsd3.

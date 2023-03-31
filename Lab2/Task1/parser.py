@@ -42,9 +42,9 @@ def text_input(text_i: str) -> str:
 
 def get_sentences_list_from_text(text: str) -> list[str]:
     sentences = re.split(r'(?<!Ph\.\sD)(?<!Ph(?=\.\sD\.))(?<!Ph\.D)(?<!Ph(?=\.D))'
-                         r'(?<!B\.\sA)(?<!B(?=\.\sA\.))(?<!B\.A)(?<!B(?=\.A))'
                          r'(?<!i\.\se)(?<!i(?=\.\se\.))(?<!i\.e)(?<!i(?=\.e))'
                          r'(?<!e\.\sg)(?<!e(?=\.\sg\.))(?<!e\.g)(?<!e(?=\.g))'
+                         r'(?<![A-Z]\.\s[A-Z])(?<![A-Z](?=\.\s[A-Z]\.))(?<![A-Z]\.[A-Z])(?<![A-Z](?=\.[A-Z]))'
                          r'(?<!Mr)(?<!Mrs)(?<!Dr)(?<!Lt)(?<!Rep)(?<!Mr)(?<!etc(?=\.[^\n]))'
                          r'(?<![ap]\.\sm)(?<![ap](?=\.\sm\.))(?<![ap]\.m)(?<![ap](?=\.m))'
                          r'((?<=[A-Za-z0-9])\.|!|\?|\?!|(?<=[A-Za-z0-9])\.\.\.|(?<=\.)\"|(?<=\?)\"|(?<=!)\"|'
@@ -95,7 +95,7 @@ def get_words_and_num_of_chars(sentences: list[str]) -> tuple[list[str], int]:
     words_in_text = []
     total_num_of_chars_in_words = 0
     for sentence in sentences:
-        words_in_sentence = re.split(r'(\s|\n|\"|\(|(?<=i)\.|(?<=e)\.|(?<=B)\.|(?<=A)\.|(?<=Ph)\.|(?<=D)\.'
+        words_in_sentence = re.split(r'(\s|\n|\"|\(|(?<=[A-Z])\.|(?<=i)\.|(?<=e)\.|(?<=Ph)\.'
                                      r'|(?<=a)\.|(?<=m)\.|(?<=Dr)\.|(?<=Mr)\.|(?<=Mrs)\.|(?<=Rep)\.|(?<=Lt)\.)',
                                      sentence)
         i = 0
