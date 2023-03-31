@@ -13,9 +13,30 @@ Robert De Niros character Travis Bickle famously asks, "Are you talkin to me?!"
 Absaf! "Where were you yesterday?" Mr. Fox asked Grandpa.
 Bob said to me "Vdsgshd cag. Bvdad gda32! Fvff msd."
 A b a b a b, "Hello there!" Mvdssd bfd. C d a c d a c d a c d a c d a c d a!
-Charlie fell out of the bag. (I wasn’t fast enough to stop him!) At least we won’t have to sweep the floor.
+Charlie fell out of the bag. (I wasnt fast enough to stop him!) At least we wont have to sweep the floor.
 (Hi there!) (Mbfs vfs?)
 '''
+
+try:
+    while True:
+        path_to_file = str(input("Enter path to file you want to load text from"
+                                 "(or nothing if you want to use default): "))
+        with open(path_to_file, 'r') as file:
+            if not file.read():
+                print("File is empty. Try again after filling this file or enter nothing as a path.")
+                continue
+            file.seek(0)
+            text = ''
+            for line in file:
+                text += line
+            break
+except FileNotFoundError:
+    print("Error with file opening or empty input. Default text will be used.")
+
+for i in text:
+    if not re.match(r'(\s|\w|\.|\"|\'|\:|\-|\?|\!|\.|\,|\n|\(|\)|\;)', i):
+        print("Incorrect symbols in file.")
+        exit()
 
 sentences = re.split(r'(?<!Ph\.\sD)(?<!Ph(?=\.\sD\.))(?<!Ph\.D)(?<!Ph(?=\.D))'
                      r'(?<!B\.\sA)(?<!B(?=\.\sA\.))(?<!B\.A)(?<!B(?=\.A))'
