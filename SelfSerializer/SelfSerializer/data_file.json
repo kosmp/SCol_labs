@@ -1,0 +1,15 @@
+{
+  "type": "type",
+  "source": {
+    "__name__": "A",
+    "__bases__": {
+      "type": "tuple",
+      "source": []
+    },
+    "__dict__": {
+      "__module__": "__main__",
+      "a": "A",
+      "__doc__": null
+    }
+  }
+}
